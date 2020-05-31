@@ -550,6 +550,304 @@ void ExprNode::printExamined(std::ostream& os)
 }
 
 /** Prints out the expression to the desired output stream, labeling
+ * the expression with its opType. The typical output stream is cout.
+ * @param e (*) The expression to print out.
+ * @param os (&) The type of output stream to print the output to.
+ * @return None */
+void ExprNode::printBypassedSomeValidProof(std::ostream& os)
+{
+ 
+  if(!(getValidReqDuringProof())) {
+    cout << "**u**";
+  }
+  switch (getOpType()){
+    case PREDICATE:
+      os << getPredicate();
+      break;
+    case FORALL:
+      os << "FORALL.[";
+      getQuant()->printBypassedSomeValidProof(os);
+      os << "]";
+      break;
+    case EXISTS:
+      os << "EXISTS.[";
+      getQuant()->printBypassedSomeValidProof(os);
+      os << "]";
+      break;
+    case FORALL_REL:
+      os << "FORALLREL.(";
+      getLeft()->printBypassedSomeValidProof(os);
+      os << ")[";
+      getRight()->printBypassedSomeValidProof(os);
+      os << "]";
+      break;
+    case EXISTS_REL:
+      os << "EXISTSREL.(";
+      getLeft()->printBypassedSomeValidProof(os);
+      os << ")[";
+      getRight()->printBypassedSomeValidProof(os);
+      os << "]";
+      break;
+    case ALLACT:
+      os << "ALLACT.[";
+      getQuant()->printBypassedSomeValidProof(os);
+      os << "]";
+      break;
+    case EXISTACT:
+      os << "EXISTACT.[";
+      getQuant()->printBypassedSomeValidProof(os);
+      os << "]";
+      break;
+    case AND:
+      os << "(";
+      getLeft()->printBypassedSomeValidProof(os);
+      os << " AND ";
+      getRight()->printBypassedSomeValidProof(os);
+      os << ")";
+      break;
+    case OR:
+      cout << "(";
+      getLeft()->printBypassedSomeValidProof(os);
+      os << " OR ";
+      getRight()->printBypassedSomeValidProof(os);
+      cout << ")";
+      break;
+    case OR_SIMPLE:
+      cout << "(";
+      getLeft()->printBypassedSomeValidProof(os);
+      os << " OR_S ";
+      getRight()->printBypassedSomeValidProof(os);
+      cout << ")";
+      break;
+    case IMPLY:
+      os << "-(-";
+      getLeft()->printBypassedSomeValidProof(os);
+      os << " IMPLY ";
+      getRight()->printBypassedSomeValidProof(os);
+      os << "-)-";
+      break;
+    case RESET:
+      getExpr()->printBypassedSomeValidProof(os);
+      getClockSet()->print(os);
+      break;
+    case REPLACE:
+      getExpr()->printBypassedSomeValidProof(os);
+      os << "p" << (getAtomic());
+      os << ":=";
+      os << getIntVal();
+      break;
+    case CONSTRAINT:
+      dbm()->print_constraint(os);
+      break;
+    case ATOMIC:
+      os << "p" << (getAtomic());
+      os << "==";
+      os << getIntVal();
+      break;
+    case ATOMIC_NOT:
+      os << "p" << (getAtomic());
+      os << "!=";
+      os << getIntVal();
+      break;
+    case ATOMIC_LT:
+      os << "p" << (getAtomic());
+      os << "<";
+      os << getIntVal();
+      break;
+    case ATOMIC_GT:
+      os << "p" << (getAtomic());
+      os << ">";
+      os << getIntVal();
+      break;
+    case ATOMIC_LE:
+      os << "p" << (getAtomic());
+      os << "<=";
+      os << getIntVal();
+      break;
+    case ATOMIC_GE:
+      os << "p" << (getAtomic());
+      os << ">=";
+      os << getIntVal();
+      break;
+    case BOOL:
+      os << ((getBool())? "TRUE" : "FALSE");
+      break;
+    case SUBLIST:
+      getExpr()->printBypassedSomeValidProof(os);
+      getSublist()->print(os);
+      break;
+    case ASSIGN:
+      getExpr()->printBypassedSomeValidProof(os);
+      os << "[";
+      os << "x" << (getcX());
+      os << "==";
+      os << "x" << (getcY());
+      os << "]";
+      break;
+    case ABLEWAITINF:
+      os << "AbleWaitInf";
+      break;
+    case UNABLEWAITINF:
+      os << "UnableWaitInf";
+      break;
+  }
+  if(!(getValidReqDuringProof())) {
+    cout << "**u**";
+  }
+  
+
+}
+
+/** Prints out the expression to the desired output stream, labeling
+ * the expression with its opType. The typical output stream is cout.
+ * @param e (*) The expression to print out.
+ * @param os (&) The type of output stream to print the output to.
+ * @return None */
+void ExprNode::printBypassedSomeInvalidProof(std::ostream& os)
+{
+ 
+   if(!(getInvalidReqDuringProof())) {
+    cout << "**u**";
+  }
+  switch (getOpType()){
+    case PREDICATE:
+      os << getPredicate() ;
+      break;
+    case FORALL:
+      os << "FORALL.[";
+      getQuant()->printBypassedSomeInvalidProof(os);
+      os << "]";
+      break;
+    case EXISTS:
+      os << "EXISTS.[";
+      getQuant()->printBypassedSomeInvalidProof(os);
+      os << "]";
+      break;
+    case FORALL_REL:
+      os << "FORALLREL.(";
+      getLeft()->printBypassedSomeInvalidProof(os);
+      os << ")[";
+      getRight()->printBypassedSomeInvalidProof(os);
+      os << "]";
+      break;
+    case EXISTS_REL:
+      os << "EXISTSREL.(";
+      getLeft()->printBypassedSomeInvalidProof(os);
+      os << ")[";
+      getRight()->printBypassedSomeInvalidProof(os);
+      os << "]";
+      break;
+    case ALLACT:
+      os << "ALLACT.[";
+      getQuant()->printBypassedSomeInvalidProof(os);
+      os << "]";
+      break;
+    case EXISTACT:
+      os << "EXISTACT.[";
+      getQuant()->printBypassedSomeInvalidProof(os);
+      os << "]";
+      break;
+    case AND:
+      os << "(";
+      getLeft()->printBypassedSomeInvalidProof(os);
+      os << " AND ";
+      getRight()->printBypassedSomeInvalidProof(os);
+      os << ")";
+      break;
+    case OR:
+      cout << "(";
+      getLeft()->printBypassedSomeInvalidProof(os);
+      os << " OR ";
+      getRight()->printBypassedSomeInvalidProof(os);
+      cout << ")";
+      break;
+    case OR_SIMPLE:
+      cout << "(";
+      getLeft()->printBypassedSomeInvalidProof(os);
+      os << " OR_S ";
+      getRight()->printBypassedSomeInvalidProof(os);
+      cout << ")";
+      break;
+    case IMPLY:
+      os << "-(-";
+      getLeft()->printBypassedSomeInvalidProof(os);
+      os << " IMPLY ";
+      getRight()->printBypassedSomeInvalidProof(os);
+      os << "-)-";
+      break;
+    case RESET:
+      getExpr()->printBypassedSomeInvalidProof(os);
+      getClockSet()->print(os);
+      break;
+    case REPLACE:
+      getExpr()->printBypassedSomeInvalidProof(os);
+      os << "p" << (getAtomic());
+      os << ":=";
+      os << getIntVal();
+      break;
+    case CONSTRAINT:
+      dbm()->print_constraint(os);
+      break;
+    case ATOMIC:
+      os << "p" << (getAtomic());
+      os << "==";
+      os << getIntVal();
+      break;
+    case ATOMIC_NOT:
+      os << "p" << (getAtomic());
+      os << "!=";
+      os << getIntVal();
+      break;
+    case ATOMIC_LT:
+      os << "p" << (getAtomic());
+      os << "<";
+      os << getIntVal();
+      break;
+    case ATOMIC_GT:
+      os << "p" << (getAtomic());
+      os << ">";
+      os << getIntVal();
+      break;
+    case ATOMIC_LE:
+      os << "p" << (getAtomic());
+      os << "<=";
+      os << getIntVal();
+      break;
+    case ATOMIC_GE:
+      os << "p" << (getAtomic());
+      os << ">=";
+      os << getIntVal();
+      break;
+    case BOOL:
+      os << ((getBool())? "TRUE" : "FALSE");
+      break;
+    case SUBLIST:
+      getExpr()->printBypassedSomeInvalidProof(os);
+      getSublist()->print(os);
+      break;
+    case ASSIGN:
+      getExpr()->printBypassedSomeInvalidProof(os);
+      os << "[";
+      os << "x" << (getcX());
+      os << "==";
+      os << "x" << (getcY());
+      os << "]";
+      break;
+    case ABLEWAITINF:
+      os << "AbleWaitInf";
+      break;
+    case UNABLEWAITINF:
+      os << "UnableWaitInf";
+      break;
+  }
+   if(!(getInvalidReqDuringProof())) {
+    cout << "**u**";
+  }
+  
+
+}
+
+/** Prints out the expression to the desired output stream, labeling
   * the expression with its opType. The typical output stream is cout.
   * @param e (*) The expression to print out.
   * @param os (&) The type of output stream to print the output to.

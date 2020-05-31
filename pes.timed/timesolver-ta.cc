@@ -233,6 +233,8 @@ int main(int argc, char** argv) {
     cpplog(cpplogging::debug) << std::endl;
   }
 
+  
+  
   /* Call the Model Checker with the given ExprNode
    * to prove or disprove the specification. */
   prover p(input_pes, opt);
@@ -307,7 +309,7 @@ int main(int argc, char** argv) {
   
   // Print Vacuity output.
   // First, print which formulas were checked
-  if(!HIDE_VACUITY_OUTPUT){
+  if(!HIDE_VACUITY_OUTPUT && !opt.allVacuity){
     std::cout << "Checking with Full Vacuity is " << opt.allVacuity << std::endl;
     std::cout << "\n====Equation Expressions (**u** expressions unchecked):" << std::endl;
      for(std::map<std::string, ExprNode *>::const_iterator it = input_pes.equations().begin();
@@ -324,6 +326,48 @@ int main(int argc, char** argv) {
        ls->printExamined(std::cout);
        std::cout << std::endl;
      }
+  }
+  
+  // Now print which subformulas are vacuous or not in some proof
+  if(!HIDE_VACUITY_OUTPUT && opt.allVacuity){
+    if(suc) {
+      // valid proof
+      std::cout << "Checking with Full Vacuity is " << opt.allVacuity << std::endl;
+      std::cout << "\n====Equation Expressions (**u** expressions unused in some valid proof):" << std::endl;
+       for(std::map<std::string, ExprNode *>::const_iterator it = input_pes.equations().begin();
+           it != input_pes.equations().end(); ++it) {
+         ExprNode *ls = (*it).second;
+      
+         std::cout << (*it).first;
+         if(ls->get_Parity()) {
+           std::cout << " :nu= ";
+         }
+         else {
+           std::cout << " :mu= ";
+         }
+         ls->printBypassedSomeValidProof(std::cout);
+         std::cout << std::endl;
+       }
+    }
+    else {
+      // invalid proof
+      std::cout << "Checking with Full Vacuity is " << opt.allVacuity << std::endl;
+      std::cout << "\n====Equation Expressions (**u** expressions unused in some invalid proof):" << std::endl;
+       for(std::map<std::string, ExprNode *>::const_iterator it = input_pes.equations().begin();
+           it != input_pes.equations().end(); ++it) {
+         ExprNode *ls = (*it).second;
+      
+         std::cout << (*it).first;
+         if(ls->get_Parity()) {
+           std::cout << " :nu= ";
+         }
+         else {
+           std::cout << " :mu= ";
+         }
+         ls->printBypassedSomeInvalidProof(std::cout);
+         std::cout << std::endl;
+       }
+    }
   }
   
   // Now print what formulas are vacuous or not

@@ -230,10 +230,12 @@ public:
     assert(q != nullptr);
     examinedDuringProof = false;
     bypassedDuringProof = false;
+    bypassedDuringValidProof = false;
+    bypassedDuringInvalidProof = false;
     validDuringProof = false;
     invalidDuringProof = false;
-    validReqDuringProof = false;
-    invalidReqDuringProof = false;
+    validReqDuringProof = true;
+    invalidReqDuringProof = true;
     justRequiredValid = false;
     justRequiredInvalid = false;
   }
@@ -258,10 +260,12 @@ public:
     assert(r != nullptr);
     examinedDuringProof = false;
     bypassedDuringProof = false;
+    bypassedDuringValidProof = false;
+    bypassedDuringInvalidProof = false;
     validDuringProof = false;
     invalidDuringProof = false;
-    validReqDuringProof = false;
-    invalidReqDuringProof = false;
+    validReqDuringProof = true;
+    invalidReqDuringProof = true;
     justRequiredValid = false;
     justRequiredInvalid = false;
   }
@@ -286,10 +290,12 @@ public:
     subst = nullptr;
     examinedDuringProof = false;
     bypassedDuringProof = false;
+    bypassedDuringValidProof = false;
+    bypassedDuringInvalidProof = false;
     validDuringProof = false;
     invalidDuringProof = false;
-    validReqDuringProof = false;
-    invalidReqDuringProof = false;
+    validReqDuringProof = true;
+    invalidReqDuringProof = true;
     justRequiredValid = false;
     justRequiredInvalid = false;
   }
@@ -316,10 +322,12 @@ public:
     subst = nullptr;
     examinedDuringProof = false;
     bypassedDuringProof = false;
+    bypassedDuringValidProof = false;
+    bypassedDuringInvalidProof = false;
     validDuringProof = false;
     invalidDuringProof = false;
-    validReqDuringProof = false;
-    invalidReqDuringProof = false;
+    validReqDuringProof = true;
+    invalidReqDuringProof = true;
     justRequiredValid = false;
     justRequiredInvalid = false;
   }
@@ -351,10 +359,12 @@ public:
     constraint = nullptr;
     examinedDuringProof = false;
     bypassedDuringProof = false;
+    bypassedDuringValidProof = false;
+    bypassedDuringInvalidProof = false;
     validDuringProof = false;
     invalidDuringProof = false;
-    validReqDuringProof = false;
-    invalidReqDuringProof = false;
+    validReqDuringProof = true;
+    invalidReqDuringProof = true;
     justRequiredValid = false;
     justRequiredInvalid = false;
   }
@@ -392,10 +402,12 @@ public:
     subst = nullptr;
     examinedDuringProof = false;
     bypassedDuringProof = false;
+    bypassedDuringValidProof = false;
+    bypassedDuringInvalidProof = false;
     validDuringProof = false;
     invalidDuringProof = false;
-    validReqDuringProof = false;
-    invalidReqDuringProof = false;
+    validReqDuringProof = true;
+    invalidReqDuringProof = true;
     justRequiredValid = false;
     justRequiredInvalid = false;
   }
@@ -422,10 +434,12 @@ public:
     constraint = nullptr;
     examinedDuringProof = false;
     bypassedDuringProof = false;
+    bypassedDuringValidProof = false;
+    bypassedDuringInvalidProof = false;
     validDuringProof = false;
     invalidDuringProof = false;
-    validReqDuringProof = false;
-    invalidReqDuringProof = false;
+    validReqDuringProof = true;
+    invalidReqDuringProof = true;
     justRequiredValid = false;
     justRequiredInvalid = false;
   }
@@ -449,10 +463,12 @@ public:
     subst = nullptr;
     examinedDuringProof = false;
     bypassedDuringProof = false;
+    bypassedDuringValidProof = false;
+    bypassedDuringInvalidProof = false;
     validDuringProof = false;
     invalidDuringProof = false;
-    validReqDuringProof = false;
-    invalidReqDuringProof = false;
+    validReqDuringProof = true;
+    invalidReqDuringProof = true;
     justRequiredValid = false;
     justRequiredInvalid = false;
   }
@@ -479,10 +495,12 @@ public:
     constraint = nullptr;
     examinedDuringProof = false;
     bypassedDuringProof = false;
+    bypassedDuringValidProof = false;
+    bypassedDuringInvalidProof = false;
     validDuringProof = false;
     invalidDuringProof = false;
-    validReqDuringProof = false;
-    invalidReqDuringProof = false;
+    validReqDuringProof = true;
+    invalidReqDuringProof = true;
     justRequiredValid = false;
     justRequiredInvalid = false;
   }
@@ -518,10 +536,12 @@ public:
     subst = nullptr;
     examinedDuringProof = false;
     bypassedDuringProof = false;
+    bypassedDuringValidProof = false;
+    bypassedDuringInvalidProof = false;
     validDuringProof = false;
     invalidDuringProof = false;
-    validReqDuringProof = false;
-    invalidReqDuringProof = false;
+    validReqDuringProof = true;
+    invalidReqDuringProof = true;
     justRequiredValid = false;
     justRequiredInvalid = false;
   }
@@ -843,12 +863,27 @@ public:
   bool getExaminedDuringProof() {
    return examinedDuringProof;
   }
+
   
    /** This returns the value of the boolean
    * indicating whether this expression was bypassed by the prover.
    * @return true: if the expression was examined; false: otherwise */
   bool getBypassedDuringProof() {
    return bypassedDuringProof;
+  }
+  
+   /** This returns the value of the boolean
+   * indicating whether this expression was bypassed by the prover in some valid proof.
+   * @return true: if the expression was examined; false: otherwise */
+  bool getBypassedDuringValidProof() {
+   return bypassedDuringValidProof;
+  }
+  
+   /** This returns the value of the boolean
+   * indicating whether this expression was bypassed by the prover in some invalid proof.
+   * @return true: if the expression was examined; false: otherwise */
+  bool getBypassedDuringInvalidProof() {
+   return bypassedDuringInvalidProof;
   }
   
   /** This returns the value of the boolean
@@ -909,6 +944,22 @@ public:
   void setBypassedDuringProof(bool newVal) {
    bypassedDuringProof = newVal;
   }
+  
+  /** Records whether this expression was bypassed by
+   * the PES prover in some valid proof.
+   * @param newVal the boolean value to record. */
+  void setBypassedDuringValidProof(bool newVal) {
+   bypassedDuringValidProof = newVal;
+  }
+  
+  
+  /** Records whether this expression was bypassed by
+   * the PES prover in some invalid proof.
+   * @param newVal the boolean value to record. */
+  void setBypassedDuringInvalidProof(bool newVal) {
+   bypassedDuringInvalidProof = newVal;
+  }
+  
   
   /** Records whether this expression was shown valid
    * for some left hand sequent.
@@ -994,6 +1045,13 @@ protected:
   /** This boolean is true if the PES prover bypassed this subformula
    * (expression) for some left hand sequent. */
   bool bypassedDuringProof;
+  /** This boolean is true if the PES prover bypassed this subformula
+   * (expression) for some left hand sequent in some valid proof. */
+  bool bypassedDuringValidProof;
+  /** This boolean is true if the PES prover bypassed this subformula
+   * (expression) for some left hand sequent in some invalid proof. */
+  bool bypassedDuringInvalidProof;
+
   
   /** This boolean is true if the PES prover found this expression
    * valid and requierd as valid for any left hand sequent. */
@@ -1056,6 +1114,20 @@ public:
    * @param os (&) The type of output stream to print the output to.
    * @return None */
   void printExamined(std::ostream& os);
+  
+  /** Prints out the expression to the desired output stream, labeling
+   * the expression with its opType. The typical output stream is cout.
+   * @param e (*) The expression to print out.
+   * @param os (&) The type of output stream to print the output to.
+   * @return None */
+  void printBypassedSomeValidProof(std::ostream& os);
+  
+  /** Prints out the expression to the desired output stream, labeling
+   * the expression with its opType. The typical output stream is cout.
+   * @param e (*) The expression to print out.
+   * @param os (&) The type of output stream to print the output to.
+   * @return None */
+  void printBypassedSomeInvalidProof(std::ostream& os);
   
   /** Prints out the expression to the desired output stream, labeling
    * the expression with its opType. The typical output stream is cout.
@@ -1175,5 +1247,296 @@ inline void print_sequent_placeCheck(std::ostream& os, const size_t step,
 }
 
 void print_ExprNodeTrans(const ExprNode* const e, std::ostream& os);
+
+
+class ProofTreeNode {
+public:
+
+
+ProofTreeNode(ExprNode *e, bool b) {
+  expr = e;
+  truth = b;
+  required = true;
+  nodeNum = 0;
+  //formulasNeeded = new vector<vector<bool>>;
+}
+
+~ProofTreeNode() {
+  // since a shallow copy, do nothing
+  //formulasNeeded.erase();
+  //delete formulasNeeded;
+}
+
+
+  ExprNode * expr;
+  bool truth;
+  bool fixpointTruth;
+  bool required;
+  int nodeNum;
+  //vector<vector<bool>> * formulasNeeded;
+  
+private:
+
+
+};
+
+
+
+/** Class used to construct and store the generated proof tree.
+ * This tree usually examines all proof branches, and is used
+ * to detect vacuous formulas over multiple proofs that can
+ * be constructed from the tree.
+ * @author Peter Fontana, Dezhuang Zhang, and Rance Cleaveland.
+ * @note Many functions are inlined for better performance.
+ * @version 1.2
+ * @date February 10, 2014*/
+class ProofTree {
+public:
+
+/** Constructor performs a shallow copy of expr. The tree might be binary.
+ * if the node has one child, then the  */
+ProofTree(ProofTreeNode * n) {
+  // shallow copy since, we construct the proof tree node
+  val = n;
+}
+
+/** Destructor. */
+~ProofTree() {
+  delete val;
+  for(int i = 0; i < children.size(); i++) {
+    ProofTree * n = children[i];
+    delete n;
+  }
+  children.clear();
+  // no need to delete parent since we are deleting by children
+}
+
+/* Output all subformulas that are vacuous for some valid proof.
+ * This is only called when the statement is valid */
+void validSomeVacuity(){
+ 
+  // The parent will change the child if it no longer needs it.
+  val->expr->setValidReqDuringProof(true);
+  val->required = true;
+  if(children.size() == 0) {
+    // do nothing
+    return;
+  }
+  else if(children.size() == 1) {
+    ProofTree * n1 = children[0];
+    n1->validSomeVacuity();
+    n1->val->required = true;
+  }
+  else if(children.size() == 2) { // check if OR
+    // Differ from AND
+    ProofTree *n1 = children[0];
+    ProofTree *n2 = children[1];
+    n1->validSomeVacuity();
+    n2->validSomeVacuity();
+    if(val->expr->getOpType() == OR_SIMPLE || val->expr->getOpType() == OR) {
+      if(n1->val->truth && n2->val->truth) {
+        n1->val->expr->setValidReqDuringProof(false);
+        n2->val->expr->setValidReqDuringProof(false);
+        n1->val->required = false;
+        n2->val->required = false;
+      }
+      else if(n1->val->truth) {
+        // Left is required for a proof
+        n1->val->expr->setValidReqDuringProof(true);
+        n2->val->expr->setValidReqDuringProof(false);
+        n1->val->required = true;
+        n2->val->required = false;
+      }
+      /* Since this expression is true, the left or the right
+       * must be true. */
+      else { // right->truth is true
+        // Right is required for a proof
+        n1->val->expr->setValidReqDuringProof(false);
+        n2->val->expr->setValidReqDuringProof(true);
+        n1->val->required = false;
+        n2->val->required = true;
+      }
+    }
+    else {
+      // Not the right operator
+      for(int i = 0; i < children.size(); i++) {
+        ProofTree * cTree = children[i];
+        cTree->val->required = val->required;
+        cTree->validSomeVacuity();
+      }
+    }
+  }
+  else { // transition case: have multiple transitions
+    // recurse for now without additions
+    for(int i = 0; i < children.size(); i++) {
+      ProofTree * cTree = children[i];
+      cTree->val->required = val->required;
+      cTree->validSomeVacuity();
+    }
+    
+  }
+  
+  return;
+}
+
+void invalidSomeVacuity() {
+
+  return;
+}
+
+void validAllVacuity() {
+
+  return;
+}
+
+void invalidAllVacuity() {
+
+  return;
+}
+
+void printProofTree() {
+  /* Print the proof tree by printing out each node with
+   * a pointer to its children */
+  // switch (e->getOpType()){
+//     case PREDICATE:
+//       os << e->getPredicate() ;
+//       break;
+//     case FORALL:
+//       os << "FORALL.[";
+//       e->getQuant()->printExamined(os);
+//       os << "]";
+//       break;
+//     case EXISTS:
+//       os << "EXISTS.[";
+//        e->getQuant()->printExamined(os);
+//       os << "]";
+//       break;
+//     case FORALL_REL:
+//       os << "FORALLREL.(";
+//       e->getLeft()->printExamined(os);
+//       os << ")[";
+//       e->getRight()->printExamined(os);
+//       os << "]";
+//       break;
+//     case EXISTS_REL:
+//       os << "EXISTSREL.(";
+//       e->getLeft()->printExamined(os);
+//       os << ")[";
+//       e->getRight()->printExamined(os);
+//       os << "]";
+//       break;
+//     case ALLACT:
+//       os << "ALLACT.[";
+//        e->getQuant()->printExamined(os);
+//       os << "]";
+//       break;
+//     case EXISTACT:
+//       os << "EXISTACT.[";
+//        e->getQuant()->printExamined(os);
+//       os << "]";
+//       break;
+//     case AND:
+//       os << "(";
+//       e->getLeft()->printExamined(os);
+//       os << " AND ";
+//       e->getRight()->printExamined(os);
+//       os << ")";
+//       break;
+//     case OR:
+//       cout << "(";
+//       e->getLeft()->printExamined(os);
+//       os << " OR ";
+//       e->getRight()->printExamined(os);
+//       cout << ")";
+//       break;
+//     case OR_SIMPLE:
+//       cout << "(";
+//       e->getLeft()->printExamined(os);
+//       os << " OR_S ";
+//       e->getRight()->printExamined(os);
+//       cout << ")";
+//       break;
+//     case IMPLY:
+//       os << "-(-";
+//       e->getLeft()->printExamined(os);
+//       os << " IMPLY ";
+//       e->getRight()->printExamined(os);
+//       os << "-)-";
+//       break;
+//     case RESET:
+//       e->getExpr()->printExamined(os);
+//       e->getClockSet()->print(os);
+//       break;
+//     case REPLACE:
+//       e->getExpr()->printExamined(os);
+//       os << "p" << (e->getAtomic());
+//       os << ":=";
+//       os << e->getIntVal();
+//       break;
+//     case CONSTRAINT:
+//       e->dbm()->print_constraint();
+//       break;
+//     case ATOMIC:
+//       os << "p" << (e->getAtomic());
+//       os << "==";
+//       os << e->getIntVal();
+//       break;
+//     case ATOMIC_NOT:
+//       os << "p" << (e->getAtomic());
+//       os << "!=";
+//       os << e->getIntVal();
+//       break;
+//     case ATOMIC_LT:
+//       os << "p" << (e->getAtomic());
+//       os << "<";
+//       os << e->getIntVal();
+//       break;
+//     case ATOMIC_GT:
+//       os << "p" << (e->getAtomic());
+//       os << ">";
+//       os << e->getIntVal();
+//       break;
+//     case ATOMIC_LE:
+//       os << "p" << (e->getAtomic());
+//       os << "<=";
+//       os << e->getIntVal();
+//       break;
+//     case ATOMIC_GE:
+//       os << "p" << (e->getAtomic());
+//       os << ">=";
+//       os << e->getIntVal();
+//       break;
+//     case BOOL:
+//       os << ((e->getBool())? "TRUE" : "FALSE");
+//       break;
+//     case SUBLIST:
+//       e->getExpr()->printExamined(os);
+//       e->getSublist()->print(os);
+//       break;
+//     case ASSIGN:
+//       e->getExpr()->printExamined(os);
+//       os << "[";
+//       os << "x" << (e->getcX());
+//       os << "==";
+//       os << "x" << (e->getcY());
+//       os << "]";
+//       break;
+//     case ABLEWAITINF:
+//       os << "AbleWaitInf";
+//       break;
+//     case UNABLEWAITINF:
+//       os << "UnableWaitInf";
+//       break;
+//   }
+  return;
+}
+
+ProofTreeNode * val;
+std::vector<ProofTree *> children;
+ProofTree * parent;
+
+private:
+
+};
 
 #endif
